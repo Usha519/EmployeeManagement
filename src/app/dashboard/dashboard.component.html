@@ -1,0 +1,91 @@
+<h2>Create Employee Form</h2>
+<div class="center-form">
+
+    <form [formGroup]="createEmployeeForm" (ngSubmit)="OnCreateEmployee()">
+        <label>Name </label><br>
+        <input type="text" placeholder="Enter username" formControlName="name"> <br>
+        <label>Email </label><br>
+        <input type="email" placeholder="Enter email" formControlName="email"> <br>
+        <label>Phone </label><br>
+        <input placeholder="Enter PhoneNum" formControlName="phone"> <br><br>
+        <button type="submit">Create Employee</button>
+
+    </form>
+</div><br><br>
+
+<h2>Get All Employees</h2>
+<div class="center-form">
+    <form (ngSubmit)="OnGetAllEmployee()">
+        <button type="submit">Get All Employee</button>
+    </form>
+</div><br><br>
+
+
+<div *ngIf="employees && employees.length > 0">
+    <h2>Employee List</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+        <tr *ngFor="let employee of employees">
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phone }}</td>
+        </tr>
+    </table>
+</div><br><br>
+
+
+<h2>Update Employee Form</h2>
+
+<div class="center-form">
+
+    <form [formGroup]="updateEmployeeForm" (ngSubmit)="OnUpdateEmployee()">
+
+        <label>Select Employee ID: </label><br>
+
+        <select formControlName="selectedId" (change)="setEmployeeId(updateEmployeeForm.get('selectedId')?.value)">
+            <option value="" disabled selected>Select an Employee ID</option>
+            <option *ngFor="let emp of employees" [value]="emp._id">{{ emp.name }}</option>
+        </select><br><br>
+
+        <label>Name </label><br>
+        <input type="text" placeholder="Enter username" formControlName="name"> <br>
+        <label>Email </label><br>
+        <input placeholder="Enter email" formControlName="email"> <br>
+        <label>Phone </label><br>
+        <input placeholder="Enter PhoneNum" formControlName="phone"> <br><br>
+        <button type="submit">Update Employee</button>
+    </form>
+</div><br><br>
+
+
+<h2>Delete Employee</h2>
+<form  [formGroup]="EmployeeForm" (ngSubmit)="OnDeleteEmployee()">
+    <label>Select Employee ID: </label><br>
+
+    <select formControlName="selectedId" (change)="setEmployeeId(EmployeeForm.get('selectedId')?.value)">
+        <option value="" disabled selected>Select an Employee ID</option>
+        <option *ngFor="let emp of employees" [value]="emp._id">{{ emp.name }}</option>
+    </select><br><br>
+
+    <button type="submit">Delete Employee</button>
+
+</form><br><br>
+
+<h2>Get Employee by Id</h2>
+
+<form  [formGroup]="EmployeeForm" (ngSubmit)="OnGetEmployee()">
+    <label>Select Employee ID: </label><br>
+
+    <select formControlName="selectedId" (change)="setEmployeeId(EmployeeForm.get('selectedId')?.value)">
+        <option value="" disabled selected></option>
+        <option *ngFor="let emp of employees" [value]="emp._id">{{ emp.name }}</option>
+    </select><br><br>
+
+    <button type="submit">Get Employee</button>&nbsp;&nbsp;
+    <button type="submit" (click)="OnLogout()">logout</button>
+
+</form>
