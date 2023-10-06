@@ -1,10 +1,35 @@
-<h2>User Login Form</h2>
-<div class="center-form">
-    <form [formGroup]="loginUserForm" (ngSubmit)="onSubmit()">
-        <label>Email</label><br>
-        <input type="email" placeholder=" enter email" formControlName="email"> <br>
-        <label>Password</label><br>
-        <input type="password" placeholder="enter password" formControlName="password"> <br><br>
-        <button type="submit">login</button>
-    </form>
+<nav class="navbar" style="background-color: #8d98a0;">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img class ="logo" src="assets/Images/employeeLogo.png" width="30" height="24">
+        <span class="navbar-brand mb-0 h1">Employee Management</span>
+      </a>
+    </div>
+</nav>
+
+
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+      
+      <form [formGroup]="loginUserForm" (ngSubmit)="onSubmit()">
+         
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+          <h1 class="text-center mb-4 text-secondary"><strong>Login</strong></h1>
+       
+
+        <div class="mb-3 mt-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="Enter email" formControlName="email">
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control"  placeholder="Enter password" formControlName="password">
+        </div>
+        
+        <button type="submit" class="btn btn-secondary">Login</button>
+       </div>  
+      </form>
+    </div>
+  </div>
 </div>

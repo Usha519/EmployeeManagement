@@ -34,13 +34,13 @@ export class ApicallService {
     return this.http.post("http://localhost:5001/api/employee/createEmployee",employeeData,{headers:headers})
   
   }
-  updateEmployee(id:any,updateData:any,token:any){
+  updateEmployee(id:any, updatedData: any,token:any){
     const headers=new HttpHeaders({
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
       
     });
-    return this.http.put(`http://localhost:5001/api/employee/updateEmployee/${id}`,updateData,{headers:headers})
+    return this.http.put(`http://localhost:5001/api/employee/updateEmployee/${id}`,updatedData,{headers:headers})
   
   }
 
