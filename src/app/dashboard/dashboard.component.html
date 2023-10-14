@@ -4,10 +4,21 @@
             <img class="logo" src="assets/Images/employeeLogo.png" width="30" height="24">
             <span class="navbar-brand mb-0 h1">Employee Management</span>
         </a>
-        <button type="button" class="btn btn-light ms-auto" (click)="toggleCreateEmployeeForm()">Create Employee</button>&nbsp;
+        
+        <button type="button" class="btn btn-light ms-auto" (click)="toggleCreateEmployeeForm()">Add Employee</button>&nbsp;
+        <div class=" dropdown end-0" >
+          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">About</a>
+              <a class="dropdown-item"  routerLink="/attendance">Attendance</a>
+              <a class="dropdown-item" href="#">Reports</a>
+          </div>
+      </div>&nbsp;
         <button type="button" class="btn btn-light ms auto" (click)="OnLogout()">Logout</button>
     </div>
-</nav>
+</nav> 
 
 <div class="container">
     <div class="row justify-content-center mt-5">
@@ -27,6 +38,10 @@
             <input type="email" class="form-control" placeholder="Enter email" formControlName="email">
           </div>
           <div class="mb-3 mt-3">
+            <label for="doj" class="form-label">Date Of Join</label>
+            <input type="text" class="form-control"  placeholder="Enter doj" formControlName="doj">
+          </div>
+          <div class="mb-3 mt-3">
             <label for="phone" class="form-label">Phone</label>
             <input type="text" class="form-control"  placeholder="Enter phnum" formControlName="phone">
           </div>
@@ -41,13 +56,14 @@
   
   
   <div *ngIf="employees && employees.length > 0">
-    <h1 class="text-secondary" style="text-align: center;"><em>Employee List</em></h1>
+    <h1 class="text-secondary" style="text-align: center;">Employees</h1>
     <div class="container">
     <table class="table ">
       <thead class="thead-dark">
         <tr class="table-danger border border-secondary">
             <th>Name</th>
             <th>Email</th>
+            <th>Date Of Join</th>
             <th>Phone</th>
             <th>Delete</th>
             <th>Edit</th>
@@ -57,6 +73,7 @@
         <tr *ngFor="let employee of employees">
             <td *ngIf="!employee.isEditing">{{ employee.name }}</td>
             <td *ngIf="!employee.isEditing">{{ employee.email }}</td>
+            <td *ngIf="!employee.isEditing">{{ employee.doj }}</td>
             <td *ngIf="!employee.isEditing">{{ employee.phone }}</td>
             <td *ngIf="!employee.isEditing"><button class="btn btn-danger" type="button" (click)="OnDeleteEmployee(employee)">Delete</button></td>
             <td *ngIf="!employee.isEditing"><button class="btn btn-primary" type="button" (click)="ToggleEditMode(employee)">Edit</button></td>
@@ -67,6 +84,9 @@
             <td *ngIf="employee.isEditing">
                 <input type="text" [(ngModel)]="employee.email">
             </td>
+            <td *ngIf="employee.isEditing">
+              <input type="text" [(ngModel)]="employee.doj">
+          </td>
             <td *ngIf="employee.isEditing">
                 <input type="text" [(ngModel)]="employee.phone">
             </td>

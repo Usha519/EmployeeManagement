@@ -7,6 +7,7 @@ interface Employee {
   _id: string;
   name: string;
   email: string;
+  doj:string;
   phone: string;
   isEditing?: boolean;
 }
@@ -27,6 +28,7 @@ export class DashboardComponent implements OnInit {
     this.createEmployeeForm = new FormGroup({
       name: new FormControl(''),
       email: new FormControl(''),
+      doj:new FormControl(''),
       phone: new FormControl('')
     })
 

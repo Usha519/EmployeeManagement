@@ -11,6 +11,11 @@ import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {  HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -19,6 +24,7 @@ import { AuthGuard } from './auth.guard';
     DashboardComponent,
     RegisterComponent,
     PageNotFoundComponent,
+    AttendanceComponent,
     
   ],
   imports: [
@@ -27,7 +33,11 @@ import { AuthGuard } from './auth.guard';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

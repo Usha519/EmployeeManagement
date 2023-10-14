@@ -68,6 +68,25 @@ export class ApicallService {
     return this.http.get(`http://localhost:5001/api/employee/getEmployee/${id}`,{headers:headers})
   }
 
+  createAttendance(employeesData:any,token:any){
+    const headers=new HttpHeaders({
+      "Content-type":"application/json",
+      "Authorization":`Bearer ${token}`
+      
+    })
+    
+    return this.http.post("http://localhost:5001/api/attendance/createAttendance",employeesData,{headers:headers})
+  
+  }
+
+  getAllAttendance(token:any){
+    const headers=new HttpHeaders({
+      "Content-type":"application/json",
+      "Authorization":`Bearer ${token}`
+    })
+    return this.http.get("http://localhost:5001/api/attendance/getAllAttendance",{headers:headers})
+  }
+
 
 }
 
