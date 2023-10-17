@@ -72,3 +72,15 @@
         </table>
     </div>
 </div>
+
+<form [formGroup]="AttendanceByDateForm" (ngSubmit)="OnGetAttendanceByDate()">
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker1" class="form-control" formControlName="date"
+            placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <button type="submit" class="btn btn-secondary">Submit</button>
+
+</form>
