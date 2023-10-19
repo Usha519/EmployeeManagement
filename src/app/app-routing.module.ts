@@ -6,6 +6,8 @@ import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth.guard';
 import { AttendanceComponent } from './attendance/attendance.component';
+import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
+import { GetDayAttendanceComponent } from './get-day-attendance/get-day-attendance.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/login',pathMatch:'full'},
@@ -13,6 +15,8 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path:'dashboard',component:DashboardComponent,canActivate:[AuthGuard]},
   {path:'attendance',component:AttendanceComponent},
+  {path:'addAttendance',component:AllAttendanceComponent},
+  {path:'dayAttendance',component:GetDayAttendanceComponent},
   {path:'**',component:PageNotFoundComponent}
 ];
 

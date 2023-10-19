@@ -1,0 +1,45 @@
+<nav class="navbar" style="background-color: #8d98a0;">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="/attendance">
+            <img class="logo" src="assets/Images/employeeLogo.png" width="30" height="24">
+            <span class="navbar-brand mb-0 h1">Employee Attendance</span>
+        </a>
+    </div>
+    <button type="button" class="btn btn-light " (click)="goToAttendance()">Attendance</button>&nbsp;
+    <button type="button" class="btn btn-light " (click)="OnLogout()">Logout</button>&nbsp;&nbsp;&nbsp;
+</nav>
+
+
+<form [formGroup]="AttendanceByDateForm" (ngSubmit)="OnGetAttendanceByDate()">
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker1" class="form-control" formControlName="date"
+            placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>&nbsp;&nbsp;
+
+    <button type="submit" class="btn btn-secondary">Submit</button>
+
+</form>
+
+
+<div *ngIf="showData && resp && resp.data && resp.data.attendance && resp.data.attendance.length > 0">
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr class="table-danger border border-secondary">
+                    <th>Employee Name</th>
+                    <th *ngFor="let record of resp.data.attendance">{{ record.date | date: 'yyyy-MM-dd' }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let attendee of getUniqueAttendees1()">
+                    <td>{{ attendee.name }}</td>
+                    <td *ngFor="let record of resp.data.attendance">
+                        {{ getAttendanceStatus1(attendee, record) }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

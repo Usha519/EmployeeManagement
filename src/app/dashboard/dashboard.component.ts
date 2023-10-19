@@ -10,6 +10,7 @@ interface Employee {
   doj:string;
   phone: string;
   isEditing?: boolean;
+  
 }
 
 @Component({
@@ -214,6 +215,9 @@ export class DashboardComponent implements OnInit {
     modalRef.style.display = 'none';
   }
   
+  goToAttendance() {
+    this.route.navigate(['/attendance']);
+  }
 }
 
 

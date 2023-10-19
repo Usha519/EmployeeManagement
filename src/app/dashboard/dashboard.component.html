@@ -1,12 +1,12 @@
 <nav class="navbar" style="background-color: #8d98a0;">
     <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/dashboard">
             <img class="logo" src="assets/Images/employeeLogo.png" width="30" height="24">
             <span class="navbar-brand mb-0 h1">Employee Management</span>
         </a>
-        
-        <button type="button" class="btn btn-light ms-auto" (click)="toggleCreateEmployeeForm()">Add Employee</button>&nbsp;
-        <div class=" dropdown end-0" >
+        <button type="button" class="btn btn-light ms-auto" (click)="goToAttendance()">Attendance</button>&nbsp;
+
+        <!-- <div class=" dropdown end-0" >
           <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Menu
           </button>
@@ -15,7 +15,7 @@
               <a class="dropdown-item"  routerLink="/attendance">Attendance</a>
               <a class="dropdown-item" href="#">Reports</a>
           </div>
-      </div>&nbsp;
+      </div>&nbsp; -->
         <button type="button" class="btn btn-light ms auto" (click)="OnLogout()">Logout</button>
     </div>
 </nav> 
@@ -28,6 +28,7 @@
            
           <div class="shadow-lg p-3 mb-5 bg-body rounded">
             <h1 class="text-center mb-4 text-secondary"><strong>Create Employee Form</strong></h1>
+    
           <div class="mb-3 mt-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control"  placeholder="Enter name" formControlName="name">
@@ -56,7 +57,10 @@
   
   
   <div *ngIf="employees && employees.length > 0">
-    <h1 class="text-secondary" style="text-align: center;">Employees</h1>
+    <div>
+      <h1 class="text-secondary" style="text-align: center;">Employees</h1>
+      <button type="button" style="margin-left: 1100px;" class="btn btn-secondary" (click)="toggleCreateEmployeeForm()">Add Employee</button>
+  </div><br>
     <div class="container">
     <table class="table ">
       <thead class="thead-dark">

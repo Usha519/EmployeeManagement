@@ -1,56 +1,28 @@
 <nav class="navbar" style="background-color: #8d98a0;">
     <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/attendance">
             <img class="logo" src="assets/Images/employeeLogo.png" width="30" height="24">
             <span class="navbar-brand mb-0 h1">Employee Attendance</span>
         </a>
-
     </div>
-    <button type="button" class="btn btn-light" routerLink="/dashboard">Dashboard</button>&nbsp;
-    <button type="button" class="btn btn-light " (click)="OnLogout()">Logout</button>
-
+    <div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16" (click)="goToDayAttendance()">
+        <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+      </svg>
+    </div>&nbsp;
+    <button type="button" class="btn btn-light " (click)="goToDashboard()">Dashboard</button>&nbsp;
+    <button type="button" class="btn btn-light " (click)="OnLogout()">Logout</button>&nbsp;&nbsp;&nbsp;
 </nav>
 
 
-<form [formGroup]="AttendanceForm" (ngSubmit)="OnCreateAttendance()">
-    <mat-form-field>
-        <input matInput [matDatepicker]="picker" class="form-control" formControlName="myDate"
-            placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <div *ngIf="employees && employees.length > 0">
-        <div class="container">
-            <table class="table ">
-                <thead class="thead-dark">
-                    <tr class="table-danger border border-secondary">
-                        <th>Name</th>
-                        <th>Status</th>
-
-                    </tr>
-                </thead>
-                <tbody formArrayName="employees">
-                    <tr *ngFor="let employee of employees; let i = index" [formGroupName]="i">
-                        <td>{{ employee.name }}</td>
-                        <td>
-                            <select class="form-control" formControlName="status">
-                                <option disabled selected>Select status</option>
-                                <option value="present">Present</option>
-                                <option value="absent">Absent</option>
-                                <option value="late">Late</option>
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-secondary">Submit</button>
-
-</form>
 
 <div *ngIf="attendance && attendance.length > 0">
+    <div>
+        <h1 class="text-secondary" style="text-align: center;">Employee Attendance</h1>
+        <button type="button" style="margin-left: 1100px;" class="btn btn-secondary"
+            (click)="toggleCreateAttendanceForm()">Add Attendance</button>
+    </div>
     <div class="container">
         <table class="table ">
             <thead class="thead-dark">
@@ -73,14 +45,3 @@
     </div>
 </div>
 
-<form [formGroup]="AttendanceByDateForm" (ngSubmit)="OnGetAttendanceByDate()">
-    <mat-form-field>
-        <input matInput [matDatepicker]="picker1" class="form-control" formControlName="date"
-            placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-
-    <button type="submit" class="btn btn-secondary">Submit</button>
-
-</form>

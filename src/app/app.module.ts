@@ -16,6 +16,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
+import { GetDayAttendanceComponent } from './get-day-attendance/get-day-attendance.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { MatInputModule } from '@angular/material/input';
     RegisterComponent,
     PageNotFoundComponent,
     AttendanceComponent,
+    AllAttendanceComponent,
+    GetDayAttendanceComponent,
     
   ],
   imports: [
