@@ -95,6 +95,16 @@ export class ApicallService {
     return this.http.get(`http://localhost:5001/api/attendance/getAttendance/${date}`,{headers:headers})
   }
 
+  updateAttendance(date:any, updatedData: any,token:any){
+    const headers=new HttpHeaders({
+      "Content-type":"application/json",
+      "Authorization":`Bearer ${token}`
+      
+    });
+    return this.http.put(`http://localhost:5001/api/attendance/updateAttendance/${date}`,updatedData,{headers:headers})
+  
+  }
+
 
 }
 

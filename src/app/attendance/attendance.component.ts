@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { ApicallService } from '../apicall.service';
 
 interface Employee {
@@ -8,7 +7,6 @@ interface Employee {
   name: string;
   email: string;
   status: string;
-  isEditing?: boolean;
 }
 @Component({
   selector: 'app-attendance',

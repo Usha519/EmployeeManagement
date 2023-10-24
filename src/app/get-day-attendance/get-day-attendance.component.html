@@ -22,24 +22,30 @@
 
 </form>
 
-
 <div *ngIf="showData && resp && resp.data && resp.data.attendance && resp.data.attendance.length > 0">
+
+    <h1 class="text-secondary" style="text-align: center;">Attendees List</h1>
     <div class="container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr class="table-danger border border-secondary">
-                    <th>Employee Name</th>
-                    <th *ngFor="let record of resp.data.attendance">{{ record.date | date: 'yyyy-MM-dd' }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let attendee of getUniqueAttendees1()">
-                    <td>{{ attendee.name }}</td>
-                    <td *ngFor="let record of resp.data.attendance">
+      <table class="table">
+        <thead class="thead-dark">
+            <tr class="table-danger border border-secondary">
+                <th>Employee Name</th>
+                <th *ngFor="let record of resp.data.attendance">{{ record.date }}</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let attendee of getUniqueAttendees1()">
+                <td>{{ attendee.name }}</td>
+                <ng-container *ngFor="let record of resp.data.attendance">
+                    <td>
                         {{ getAttendanceStatus1(attendee, record) }}
                     </td>
-                </tr>
-            </tbody>
-        </table>
+                </ng-container>
+            </tr>
+        </tbody>
+        
+      </table>
     </div>
-</div>
+  </div>
+  
