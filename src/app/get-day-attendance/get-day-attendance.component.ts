@@ -8,9 +8,9 @@ interface Attendance {
   name: string;
   status: string;
   date: string;
-  editMode?: boolean;
+  isEditMode:boolean
+  
 }
-
 
 
 @Component({
@@ -21,11 +21,14 @@ interface Attendance {
 export class GetDayAttendanceComponent implements OnInit {
 
   AttendanceByDateForm: FormGroup;
-  date: any
   resp: any
   showData: boolean = false;
-  attendance: any[] = [];
-  attendees: any;
+  formattedDate: any;
+  attendees: any[] = []; 
+  attendance:any[]=[];
+  attendancee: Attendance = { _id: '', name: '', status: '', date: '', isEditMode: false };
+
+
   
 
   constructor(public route: Router, public apicallService: ApicallService) {
@@ -51,7 +54,7 @@ export class GetDayAttendanceComponent implements OnInit {
             }
         });
     });
-    console.log('Unique Attendees:', uniqueAttendees); // Add this line
+    console.log('Unique Attendees:', uniqueAttendees);
     return uniqueAttendees;
 }
 
@@ -77,6 +80,7 @@ getAttendanceStatus1(attendee: any, record: any) {
     }
 
     const formattedDate = this.formatDate1(selectedDate);
+    this.formattedDate = formattedDate;
 
 
     if (localStorage.getItem('token')) {
@@ -111,47 +115,51 @@ getAttendanceStatus1(attendee: any, record: any) {
     return `${year}-${month}-${day}`;
   }
   
-
-  OnUpdateAttendance(attendance: Attendance) {
+  OnUpdateAttendance(attendancee: Attendance) {
     const token = localStorage.getItem('token');
     if (!token) {
       console.log("Issue in the token");
       return;
     }
 
-    if (attendance.date === undefined) {
+    if (this.formattedDate === undefined) {
       console.log("Date is undefined. Cannot make the request.");
       return;
     }
+    
+    
+    const updatedAttendees = this.getUniqueAttendees1();
+    console.log("Updated Attendees:", updatedAttendees); 
+    const updatedData = { 
 
-  
+      date: this.formattedDate,
+      attendees: updatedAttendees.map((attendee:any) => ({ _id:attendee._id, status: attendee.record}))
 
-    const updatedData = {
-      status: attendance.status
     };
 
-    this.apicallService.updateAttendance(attendance.date, updatedData, token).subscribe((res: any) => {
+    console.log("Sending data for update:", updatedData);
+
+    this.apicallService.updateAttendance(this.formattedDate, updatedData, token).subscribe((res: any) => {
+      console.log(res);
       if (res && res["status"] === "200" && res['data']['updatedAttendance']) {
         console.log(res);
         console.log("Attendance update successfully");
-        
+        attendancee.isEditMode=false;
       }
     }, (err) => {
       if (err) {
-        console.log("Error in update attendance", err);
+        console.log("Error in update Attendance", err);
       }
     });
   }
 
-  CancelEdit(attendance:Attendance) {
-    attendance.editMode = false
+  toggleEditMode(attendancee:Attendance){
+     attendancee.isEditMode=!attendancee.isEditMode
   }
-
-  ToggleEditMode(attendance: Attendance) {
-    attendance.editMode = !attendance.editMode;
+  
+  Cancel(attendancee:Attendance){
+    attendancee.isEditMode=false
   }
-
-
   
   
   OnLogout() {
