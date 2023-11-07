@@ -105,6 +105,16 @@ export class ApicallService {
   
   }
 
+  getAttendanceBetweenDates(startDate:any,endDate:any,token:any){
+    const headers=new HttpHeaders({
+      "Content-type":"application/json",
+      "Authorization":`Bearer ${token}`
+      
+    });
+    return this.http.get(`http://localhost:5001/api/attendance/getBetweenDates/?startDate=${startDate}&endDate=${endDate}`,{headers:headers})
+  
+  }
+
 
 }
 

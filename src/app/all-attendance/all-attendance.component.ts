@@ -100,6 +100,8 @@ export class AllAttendanceComponent implements OnInit{
     return `${year}-${month}-${day}`;
   }
 
+  
+
 
   OnLogout() {
     localStorage.removeItem('token');

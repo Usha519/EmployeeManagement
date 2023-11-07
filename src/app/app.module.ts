@@ -18,6 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
 import { GetDayAttendanceComponent } from './get-day-attendance/get-day-attendance.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,11 @@ import { GetDayAttendanceComponent } from './get-day-attendance/get-day-attendan
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+  
+  
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
