@@ -41,56 +41,46 @@
 
 <div class="container">
   <table class="table ">
-      <thead class="thead-dark">
-          <tr class="table-danger border border-secondary">
-              <th>Employee Name</th>
-              <th *ngFor="let record of attendance">{{ record.date | date: 'yyyy-MM-dd' }}</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let attendee of getUniqueAttendees()">
-              <td>{{ attendee.name }}</td>
-              <td *ngFor="let record of attendance">
-                  {{ getAttendanceStatus(attendee, record) }}
-              </td>
-          </tr>
-      </tbody>
+    <thead class="thead-dark">
+      <tr class="table-danger border border-secondary">
+        <th>Employee Name</th>
+        <th *ngFor="let record of attendance">{{ record.date | date: 'yyyy-MM-dd' }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attendee of getUniqueAttendees()">
+        <td>{{ attendee.name }}</td>
+        <td *ngFor="let record of attendance">
+          {{ getAttendanceStatus1(attendee, record) }}
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
 
-
-
-<div class=" container mat-elevation-z8" >
-  <table mat-table [dataSource]="dataSources" >
-    {{dataSources.data | json}}
-
+<!-- <div class=" container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSources"> -->
     <!-- Employee Name Column -->
-    <ng-container matColumnDef="name">
+    <!-- <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Employee Name </th>
-      <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-    </ng-container>
+      <td mat-cell *matCellDef="let row">
+        {{ row.name }}
+      </td>
+    </ng-container> -->
 
-    <ng-container *ngFor="let date of uniqueDates" [matColumnDef]="date">
+    <!-- Define columns for dates -->
+    <!-- <ng-container *ngFor="let date of uniqueDates" matColumnDef="{{ date }}">
       <th mat-header-cell *matHeaderCellDef>{{ date | date: 'yyyy-MM-dd' }}</th>
       <td mat-cell *matCellDef="let row">
-        <ng-container *ngFor="let attendee of row.attendees">
-          <div *ngIf="attendee.date === date">{{ attendee.status }}</div>
-        </ng-container>
+        {{ getAttendanceStatus(row, date) }}
       </td>
-    </ng-container>
-    
+    </ng-container> -->
+
+
     <!-- Header row for columns -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
 
     <!-- Data rows -->
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
+    <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-  <mat-paginator [pageSize]="columnsPerPage" [pageSizeOptions]="[columnsPerPage]" [pageIndex]="currentPage"
-  [length]="getTotalPages()">
-  </mat-paginator>
-
-  <button [disabled]="currentPage === 0" (click)="previousPage()">Previous</button>
-  <button [disabled]="(currentPage + 1) * columnsPerPage >= uniqueDates.length" (click)="nextPage()">Next</button>
-</div>
+</div> -->

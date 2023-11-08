@@ -26,7 +26,7 @@ export class AttendanceComponent implements OnInit {
   dataSources = new MatTableDataSource<any>();
   uniqueDates: string[] = [];
 
-  @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
+  @ViewChild(MatPaginator)paginator?:MatPaginator
 
 
   constructor(public route: Router, public apicallService: ApicallService) {
@@ -60,12 +60,13 @@ export class AttendanceComponent implements OnInit {
             this.totalItems = this.attendance.length;
             this.uniqueDates = this.getUniqueDates();
             this.displayedColumns = ['name', ...this.uniqueDates];
-            this.dataSources = new MatTableDataSource(this.attendance);
-
+            
+            this.dataSources.data = this.getUniqueAttendees1(); 
             if (this.paginator) {
               this.dataSources.paginator = this.paginator;
             }
             console.log(this.dataSources.data)
+            console.log(this.getUniqueAttendees1())
 
           } else {
             console.log('token problem');
@@ -99,7 +100,6 @@ export class AttendanceComponent implements OnInit {
     this.route.navigate(['/addAttendance']);
   }
 
-  // Modify your getUniqueDates function to get dates from attendees
   getUniqueDates() {
     const uniqueDates: string[] = [];
 
@@ -160,8 +160,11 @@ export class AttendanceComponent implements OnInit {
   getDisplayedColumns(): string[] {
     const startIndex = this.currentPage * this.columnsPerPage;
     const endIndex = startIndex + this.columnsPerPage;
-    return ['name', ...this.uniqueDates.slice(startIndex, endIndex)];
+    const datesToShow = this.uniqueDates.slice(startIndex, endIndex);
+    return ['name', ...datesToShow];
   }
+  
+  
 
   getTotalPages(): number {
     return Math.ceil(this.uniqueDates.length / this.columnsPerPage);
@@ -180,10 +183,26 @@ export class AttendanceComponent implements OnInit {
     return uniqueAttendees;
   }
 
- getAttendanceStatus(attendee: any, record: any) {
-    const found = record.attendees.find((a: any) => a.name === attendee.name);
-    return found ? found.status : '-';
+  getAttendanceStatus1(attendee: any, record: any) {
+    if (record && record.attendees) {
+      const found = record.attendees.find((a: any) => a.name === attendee.name);
+      return found ? found.status : '-';
+    } else {
+      return '-';
+    }
   }
+
+  getAttendanceStatus(row: any, date: string) {
+    const record = this.attendance.find(r => r.date === date);
+    if (record && record.attendees) {
+      const attendee = record.attendees.find((a:any) => a.name === row.name);
+      return attendee ? attendee.status : '-';
+    } else {
+      return '-';
+    }
+  }
+  
+  
 
 
   OnLogout() {
