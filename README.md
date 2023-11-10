@@ -25,3 +25,37 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+create a folder
+
+clone the frontentend code
+
+run `npm install` command 
+run `ng serve` command 
+After running the `ng serve` command, navigatie to  `http://localhost:4200/`
+Use ctrl+click key open that url in browser. 
+
+clone the backend code 
+
+run `npm install` command
+run `npm start` command 
+
+In this project mongodb databse is used . Install `mongodb Compass` 
+
+when you are working first time on this project 
+
+Go to register page , `register` and then `login` with same mail id and password.
+
+Then you can enter in to project 
+
+There are two modules in this project
+
+1. Employee Module
+   Crud operation on employees (create, read , update, delete)
+
+2. Attendance Module
+   crud operation on attendance (create , read , update)
+
+
+
