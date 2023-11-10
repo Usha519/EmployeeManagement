@@ -17,7 +17,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AllAttendanceComponent } from './all-attendance/all-attendance.component';
-import { GetDayAttendanceComponent } from './get-day-attendance/get-day-attendance.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
@@ -31,7 +30,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     PageNotFoundComponent,
     AttendanceComponent,
     AllAttendanceComponent,
-    GetDayAttendanceComponent,
+
     
   ],
   imports: [
