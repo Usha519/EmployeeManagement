@@ -5,32 +5,33 @@
       <span class="navbar-brand mb-0 h1">Employee Attendance</span>
     </a>
   </div>
- 
+
   <button type="button" class="btn btn-light " (click)="goToDashboard()">Dashboard</button>&nbsp;
-  <button type="button" class="btn btn-light " (click)="OnLogout()">Logout</button>&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-light" (click)="OnLogout()">Logout</button>&nbsp;&nbsp;&nbsp;
 </nav>
 
 <h1 class="text-secondary" style="text-align: center;">Employee Attendance</h1>
-<button type="button" style="margin-left: 1100px;" class="btn btn-secondary" (click)="toggleCreateAttendanceForm()">Add
-  Attendance</button>
-<form [formGroup]="AttendanceBetweenDatesForm" (ngSubmit)="OnGetAttendanceBetweenDates()">
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" class="form-control" formControlName="startDate"
-      placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>&nbsp;
+<div>
+  <button type="button" style="margin-left: 1100px;" class="btn btn-secondary" (click)="toggleCreateAttendanceForm()">Add Attendance</button>
+  <form [formGroup]="AttendanceBetweenDatesForm" (ngSubmit)="OnGetOneWeekAttendance()">
+    <mat-form-field style="margin-left:100px;">
+      <input matInput [matDatepicker]="picker" class="form-control" formControlName="date"
+        placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>&nbsp;
 
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker1" class="form-control" formControlName="endDate"
-      placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>&nbsp;
-  <button type="submit" class="btn btn-secondary">Submit</button>
+    <!-- <mat-form-field>
+      <input matInput [matDatepicker]="picker1" class="form-control" formControlName="endDate"
+        placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>&nbsp;-->
+    <button type="submit" class="btn btn-secondary">Submit</button>
 
-</form>
+  </form>
 
+</div>
 
 <div class="container">
   <table class="table ">
@@ -53,16 +54,16 @@
 
 <!-- <div class=" container mat-elevation-z8">
   <table mat-table [dataSource]="dataSources"> -->
-    <!-- Employee Name Column -->
-    <!-- <ng-container matColumnDef="name">
+<!-- Employee Name Column -->
+<!-- <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Employee Name </th>
       <td mat-cell *matCellDef="let row">
         {{ row.name }}
       </td>
     </ng-container> -->
 
-    <!-- Define columns for dates -->
-    <!-- <ng-container *ngFor="let date of uniqueDates" matColumnDef="{{ date }}">
+<!-- Define columns for dates -->
+<!-- <ng-container *ngFor="let date of uniqueDates" matColumnDef="{{ date }}">
       <th mat-header-cell *matHeaderCellDef>{{ date | date: 'yyyy-MM-dd' }}</th>
       <td mat-cell *matCellDef="let row">
         {{ getAttendanceStatus(row, date) }}
@@ -70,10 +71,10 @@
     </ng-container> -->
 
 
-    <!-- Header row for columns -->
-    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+<!-- Header row for columns -->
+<!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
 
-    <!-- Data rows -->
-    <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<!-- Data rows -->
+<!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div> -->

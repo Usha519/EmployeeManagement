@@ -31,55 +31,68 @@ export class AttendanceComponent implements OnInit {
 
   constructor(public route: Router, public apicallService: ApicallService) {
     this.AttendanceBetweenDatesForm = new FormGroup({
-      startDate: new FormControl(''),
-      endDate: new FormControl('')
+       date: new FormControl(''),
+      // endDate: new FormControl('')
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // Initialize the date to the current date
+    const currentDate = new Date();
 
-  OnGetAttendanceBetweenDates() {
-    const formData = this.AttendanceBetweenDatesForm.value;
-    const startDate = formData.startDate ? this.formatDate(formData.startDate) : null;
-    const endDate = formData.endDate ? this.formatDate(formData.endDate) : null;
-    const token = localStorage.getItem('token');
+    // Set the default date in the form
+    this.AttendanceBetweenDatesForm.patchValue({
+      date: currentDate
+    });
 
-    if (!token) {
-      console.log('Issue with the token');
-      return;
-    }
-
-    if (localStorage.getItem('token')) {
-      this.apicallService.getAttendanceBetweenDates(startDate, endDate, token).subscribe(
-        (res: any) => {
-          if (res && res['status'] === '200' && res['data']['allAttendance']) {
-            console.log(res);
-            console.log('getAllAttendance Successful');
-            this.attendance = res['data']['allAttendance'];
-            console.log(this.attendance);
-            this.totalItems = this.attendance.length;
-            this.uniqueDates = this.getUniqueDates();
-            this.displayedColumns = ['name', ...this.uniqueDates];
-            
-            this.dataSources.data = this.getUniqueAttendees1(); 
-            if (this.paginator) {
-              this.dataSources.paginator = this.paginator;
-            }
-            console.log(this.dataSources.data)
-            console.log(this.getUniqueAttendees1())
-
-          } else {
-            console.log('token problem');
-          }
-        },
-        (err) => {
-          if (err) {
-            console.log('err in the code', err);
-          }
-        }
-      );
-    }
+    // Call the method to get the attendance for the default week
+    this.OnGetOneWeekAttendance();
   }
+
+   
+
+  // OnGetAttendanceBetweenDates() {
+  //   const formData = this.AttendanceBetweenDatesForm.value;
+  //   const startDate = formData.startDate ? this.formatDate(formData.startDate) : null;
+  //   const endDate = formData.endDate ? this.formatDate(formData.endDate) : null;
+  //   const token = localStorage.getItem('token');
+
+  //   if (!token) {
+  //     console.log('Issue with the token');
+  //     return;
+  //   }
+
+  //   if (localStorage.getItem('token')) {
+  //     this.apicallService.getAttendanceBetweenDates(startDate, endDate, token).subscribe(
+  //       (res: any) => {
+  //         if (res && res['status'] === '200' && res['data']['allAttendance']) {
+  //           console.log(res);
+  //           console.log('getAllAttendance Successful');
+  //           this.attendance = res['data']['allAttendance'];
+  //           console.log(this.attendance);
+  //           this.totalItems = this.attendance.length;
+  //           this.uniqueDates = this.getUniqueDates();
+  //           this.displayedColumns = ['name', ...this.uniqueDates];
+            
+  //           this.dataSources.data = this.getUniqueAttendees1(); 
+  //           if (this.paginator) {
+  //             this.dataSources.paginator = this.paginator;
+  //           }
+  //           console.log(this.dataSources.data)
+  //           console.log(this.getUniqueAttendees1())
+
+  //         } else {
+  //           console.log('token problem');
+  //         }
+  //       },
+  //       (err) => {
+  //         if (err) {
+  //           console.log('err in the code', err);
+  //         }
+  //       }
+  //     );
+  //   }
+  // }
 
   formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -201,6 +214,40 @@ export class AttendanceComponent implements OnInit {
       return '-';
     }
   }
+
+  OnGetOneWeekAttendance(){
+    const formData = this.AttendanceBetweenDatesForm.value;
+    const date = formData.date ? this.formatDate(formData.date) : null;
+    
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.log('Issue with the token');
+      return;
+    }
+
+    if (localStorage.getItem('token')) {
+      this.apicallService. getOneWeekAttendance(date ,token).subscribe(
+        (res: any) => {
+          if (res && res['status'] === '200' && res['data']['attendanceWithinRange']) {
+            console.log(res);
+            console.log(' attendanceWithinRange Successful');
+            this.attendance=res['data']['attendanceWithinRange'];
+            console.log(this.attendance)
+
+          } else {
+            console.log('token problem');
+          }
+        },
+        (err:any) => {
+          if (err) {
+            console.log('err in the code', err);
+          }
+        }
+      );
+    }
+  }
+
   
   
 

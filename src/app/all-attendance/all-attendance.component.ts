@@ -9,6 +9,7 @@ interface Attendance {
   status: string;
   date: string;
   isEditMode: boolean;
+  record:string;
 }
 
 
@@ -25,7 +26,7 @@ export class AllAttendanceComponent implements OnInit{
   formattedDate: any;
   attendees: any[] = []; 
   attendance:any[]=[];
-  attendancee: Attendance = { _id: '', name: '', status: '', date: '', isEditMode: false };
+  attendancee: Attendance = { _id: '', name: '', status: '', date: '', isEditMode: false,record:'' };
   dataAvailable: boolean = false;
   AttendanceForm: FormGroup;
 
@@ -202,11 +203,15 @@ export class AllAttendanceComponent implements OnInit{
   }
 
   toggleEditMode(attendancee:Attendance){
-     attendancee.isEditMode=!attendancee.isEditMode
+     attendancee.isEditMode=!attendancee.isEditMode;
+
+     if (attendancee.isEditMode) {
+      attendancee.record = this.getAttendanceStatus1(attendancee, this.resp.data.attendance[0]);
+    }
   }
   
   Cancel(attendancee:Attendance){
-    attendancee.isEditMode=false
+    attendancee.isEditMode=false;
   }
 
 
