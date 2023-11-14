@@ -2,7 +2,7 @@
     <div class="container d-flex justify-content-between align-items-center">
         <a class="navbar-brand" href="/addAttendance">
             <img class="logo" src="assets/Images/employeeLogo.png" width="30" height="24">
-            <span class="navbar-brand mb-0 h1">Employee Attendance</span>
+            <span class="navbar-brand mb-0 h1">Add Attendance</span>
         </a>
 
     </div>
@@ -10,7 +10,7 @@
     <button type="button" class="btn btn-light " (click)="OnLogout()">Logout</button>&nbsp;&nbsp;&nbsp;
 </nav>
 
-<form [formGroup]="AttendanceByDateForm" (ngSubmit)="OnGetAttendanceByDate()">
+<form [formGroup]="AttendanceByDateForm" (ngSubmit)="OnGetAttendanceByDate(attendancee)">
     <mat-form-field style="margin-left: 900px; margin-top: 20px;">
         <input matInput [matDatepicker]="picker" class="form-control" formControlName="date"
             placeholder="Choose a date">
@@ -35,7 +35,12 @@
                     <ng-container>
                         <td *ngFor="let record of resp.data.attendance">
                             <span *ngIf="!attendancee.isEditMode">{{ getAttendanceStatus1(attendee, record) }}</span>
-                            <input *ngIf="attendancee.isEditMode" type="text" [(ngModel)]="attendee.record" />
+                            <select *ngIf="attendancee.isEditMode" [(ngModel)]="attendee.record">
+                                <option disabled selected>Select status</option>
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                                <option value="late">Late</option>
+                            </select>
                         </td>
                     </ng-container>
                 </tr>

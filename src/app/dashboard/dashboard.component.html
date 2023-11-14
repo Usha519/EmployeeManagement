@@ -80,7 +80,7 @@
             <td *ngIf="!employee.isEditing">{{ employee.doj }}</td>
             <td *ngIf="!employee.isEditing">{{ employee.phone }}</td>
             <td *ngIf="!employee.isEditing"><button class="btn btn-danger" type="button" (click)="OnDeleteEmployee(employee)">Delete</button></td>
-            <td *ngIf="!employee.isEditing"><button class="btn btn-primary" type="button" (click)="ToggleEditMode(employee)">Edit</button></td>
+            <td *ngIf="!employee.isEditing"><button class="btn btn-secondary" type="button" (click)="ToggleEditMode(employee)">Edit</button></td>
 
             <td *ngIf="employee.isEditing">
                 <input type="text" [(ngModel)]="employee.name">

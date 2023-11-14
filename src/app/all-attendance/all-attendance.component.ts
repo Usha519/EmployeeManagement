@@ -95,7 +95,7 @@ export class AllAttendanceComponent implements OnInit {
     return status;
   }
 
-  OnGetAttendanceByDate() {
+  OnGetAttendanceByDate(attendancee:Attendance) {
     const dateControl = this.AttendanceByDateForm.get('date');
 
     if (!dateControl) {
@@ -138,6 +138,10 @@ export class AllAttendanceComponent implements OnInit {
             this.attendance.forEach(attendee => {
               attendee.record = this.getAttendanceStatus1(attendee, this.resp.data.attendance[0]);
             });
+
+            
+
+        
 
             this.dataAvailable = true; // Data is available
             console.log('successful');
@@ -215,11 +219,22 @@ export class AllAttendanceComponent implements OnInit {
   toggleEditMode(attendancee: Attendance) {
     attendancee.isEditMode = !attendancee.isEditMode;
 
-    if (attendancee.isEditMode) {
-      attendancee.record = this.getAttendanceStatus1(attendancee, this.resp.data.attendance[0]);
+    if (this.showData && this.resp && this.resp.data && this.resp.data.attendance) {
+      const foundDate = this.resp.data.attendance.find((record:any) => record.date === this.formattedDate);
+      
+      if (foundDate && foundDate.attendees) {
+        const foundAttendee = foundDate.attendees.find((attendee: any) => attendee._id === attendancee._id);
+        
+        if (foundAttendee) {
+          attendancee.record = foundAttendee.status;
+        } else {
+          attendancee.record = ''; // Set default value when attendee not found
+        }
+      }
     }
-  }
 
+  }
+  
   Cancel(attendancee: Attendance) {
     attendancee.isEditMode = false;
   }

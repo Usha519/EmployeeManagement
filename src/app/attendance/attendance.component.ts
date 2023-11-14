@@ -248,6 +248,39 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
+  OnGetNextWeekAttendance(){
+    const formData = this.AttendanceBetweenDatesForm.value;
+    const date = formData.date ? this.formatDate(formData.date) : null;
+    
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.log('Issue with the token');
+      return;
+    }
+
+    if (localStorage.getItem('token')) {
+      this.apicallService. getNextWeekAttendance(date ,token).subscribe(
+        (res: any) => {
+          if (res && res['status'] === '200' && res['data']['attendanceWithinRange']) {
+            console.log(res);
+            console.log(' attendanceWithinRange Successful');
+            this.attendance=res['data']['attendanceWithinRange'];
+            console.log(this.attendance)
+
+          } else {
+            console.log('token problem');
+          }
+        },
+        (err:any) => {
+          if (err) {
+            console.log('err in the code', err);
+          }
+        }
+      );
+    }
+  }
+
   
   
 

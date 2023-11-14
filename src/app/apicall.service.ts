@@ -125,6 +125,17 @@ export class ApicallService {
   
   }
 
+  getNextWeekAttendance(date:any,token:any){
+    const headers=new HttpHeaders({
+      "Content-type":"application/json",
+      "Authorization":`Bearer ${token}`
+      
+    });
+    return this.http.get(`http://localhost:5001/api/attendance/nextWeekAttendance/${date}`,{headers:headers})
+  
+  }
+
+
 
 
 }
