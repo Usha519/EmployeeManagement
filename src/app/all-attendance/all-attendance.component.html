@@ -35,7 +35,7 @@
                     <ng-container>
                         <td *ngFor="let record of resp.data.attendance">
                             <span *ngIf="!attendancee.isEditMode">{{ getAttendanceStatus1(attendee, record) }}</span>
-                            <input *ngIf="attendancee.isEditMode" type="text" [(ngModel)]="attendancee.record" />
+                            <input *ngIf="attendancee.isEditMode" type="text" [(ngModel)]="attendee.record" />
                         </td>
                     </ng-container>
                 </tr>

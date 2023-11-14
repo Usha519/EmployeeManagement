@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApicallService } from '../apicall.service';
-import { FormGroup, FormControl,FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 
 interface Attendance {
   _id: string;
@@ -9,7 +9,7 @@ interface Attendance {
   status: string;
   date: string;
   isEditMode: boolean;
-  record:string;
+  record: string;
 }
 
 
@@ -18,15 +18,15 @@ interface Attendance {
   templateUrl: './all-attendance.component.html',
   styleUrls: ['./all-attendance.component.scss']
 })
-export class AllAttendanceComponent implements OnInit{
+export class AllAttendanceComponent implements OnInit {
   employees: any[] = [];
   AttendanceByDateForm: FormGroup;
   resp: any
   showData: boolean = false;
   formattedDate: any;
-  attendees: any[] = []; 
-  attendance:any[]=[];
-  attendancee: Attendance = { _id: '', name: '', status: '', date: '', isEditMode: false,record:'' };
+  attendees: any[] = [];
+  attendance: any[] = [];
+  attendancee: Attendance = { _id: '', name: '', status: '', date: '', isEditMode: false, record: '' };
   dataAvailable: boolean = false;
   AttendanceForm: FormGroup;
 
@@ -79,11 +79,11 @@ export class AllAttendanceComponent implements OnInit{
   getUniqueAttendees1() {
     const uniqueAttendees: any = [];
     this.attendance.forEach((record: any) => {
-        record.attendees.forEach((attendee: any) => {
-            if (!uniqueAttendees.some((item: any) => item.name === attendee.name)) {
-                uniqueAttendees.push(attendee);
-            }
-        });
+      record.attendees.forEach((attendee: any) => {
+        if (!uniqueAttendees.some((item: any) => item.name === attendee.name)) {
+          uniqueAttendees.push(attendee);
+        }
+      });
     });
     console.log('Unique Attendees:', uniqueAttendees);
     return uniqueAttendees;
@@ -97,13 +97,13 @@ export class AllAttendanceComponent implements OnInit{
 
   OnGetAttendanceByDate() {
     const dateControl = this.AttendanceByDateForm.get('date');
-    
+
     if (!dateControl) {
       console.log('Date control is null');
       return;
     }
     const selectedDate = dateControl.value;
-    
+
     if (!selectedDate) {
       console.log('Error: Date is not selected');
       return;
@@ -122,7 +122,7 @@ export class AllAttendanceComponent implements OnInit{
       this.showData = false;
       this.dataAvailable = false; // No data available
     }
-  
+
 
 
     if (localStorage.getItem('token')) {
@@ -166,7 +166,7 @@ export class AllAttendanceComponent implements OnInit{
     const existingData = this.attendance.find(record => record.date === date);
     return existingData;
   }
-  
+
   OnUpdateAttendance(attendancee: Attendance) {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -178,12 +178,12 @@ export class AllAttendanceComponent implements OnInit{
       console.log("Date is undefined. Cannot make the request.");
       return;
     }
-    
+
     const updatedAttendees = this.getUniqueAttendees1();
-    console.log("Updated Attendees:", updatedAttendees); 
-    const updatedData = { 
+    console.log("Updated Attendees:", updatedAttendees);
+    const updatedData = {
       date: this.formattedDate,
-      attendees: updatedAttendees.map((attendee:any) => ({ _id:attendee._id, status: attendee.record}))
+      attendees: updatedAttendees.map((attendee: any) => ({ _id: attendee._id, status: attendee.record }))
     };
 
     console.log("Sending data for update:", updatedData);
@@ -193,31 +193,41 @@ export class AllAttendanceComponent implements OnInit{
       if (res && res["status"] === "200" && res['data']['updatedAttendance']) {
         console.log(res);
         console.log("Attendance update successfully");
-        attendancee.isEditMode=false;
+        attendancee.isEditMode = false;
+        // Update local data with the received data from the server
+        const updatedRecord = res.data.updatedAttendance;
+        const index = this.attendance.findIndex(record => record._id === updatedRecord._id);
+        
+        if (index !== -1) {
+          this.attendance[index] = updatedRecord;
+          console.log("Updated local data:", this.attendance);
+        }
+        
+        attendancee.isEditMode = false; // Exit edit mode
       }
-    }, (err) => {
+    }, (err: any) => {
       if (err) {
         console.log("Error in update Attendance", err);
       }
     });
   }
 
-  toggleEditMode(attendancee:Attendance){
-     attendancee.isEditMode=!attendancee.isEditMode;
+  toggleEditMode(attendancee: Attendance) {
+    attendancee.isEditMode = !attendancee.isEditMode;
 
-     if (attendancee.isEditMode) {
+    if (attendancee.isEditMode) {
       attendancee.record = this.getAttendanceStatus1(attendancee, this.resp.data.attendance[0]);
     }
   }
-  
-  Cancel(attendancee:Attendance){
-    attendancee.isEditMode=false;
+
+  Cancel(attendancee: Attendance) {
+    attendancee.isEditMode = false;
   }
 
 
   OnCreateAttendance() {
     const formData = this.AttendanceForm.value;
-    const formData1=this.AttendanceByDateForm.value;
+    const formData1 = this.AttendanceByDateForm.value;
     const date = formData1.date ? this.formatDate(formData1.date) : null; // Check if date is selected
     const employeesData = formData.employees.map((employee: any) => {
       return {
@@ -261,7 +271,7 @@ export class AllAttendanceComponent implements OnInit{
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  
+
   OnLogout() {
     localStorage.removeItem('token');
     this.route.navigate(['/login']);
