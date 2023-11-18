@@ -9,11 +9,11 @@ export class ApicallService {
   constructor(public http:HttpClient) { }
 
   login(userData:any){
-    return this.http.post("http://localhost:5001/api/users/login",userData)
+    return this.http.post("http://13.211.117.254/api/users/login",userData)
   }
 
   registerUser(userData:any){
-    return this.http.post("http://localhost:5001/api/users/register",userData)
+    return this.http.post("http://13.211.117.254/api/users/register",userData)
   }
 
   gotoDashboard(token:any){
@@ -21,7 +21,7 @@ export class ApicallService {
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
     })
-    return this.http.get("http://localhost:5001/api/users/dashboard",{headers:headers})
+    return this.http.get("http://13.211.117.254/api/users/dashboard",{headers:headers})
   }
 
  createEmployee(employeeData:any,token:any){
@@ -31,7 +31,7 @@ export class ApicallService {
       
     })
     
-    return this.http.post("http://localhost:5001/api/employee/createEmployee",employeeData,{headers:headers})
+    return this.http.post("http://13.211.117.254/api/employee/createEmployee",employeeData,{headers:headers})
   
   }
   updateEmployee(id:any, updatedData: any,token:any){
@@ -40,7 +40,7 @@ export class ApicallService {
       "Authorization":`Bearer ${token}`
       
     });
-    return this.http.put(`http://localhost:5001/api/employee/updateEmployee/${id}`,updatedData,{headers:headers})
+    return this.http.put(`http://13.211.117.254/api/employee/updateEmployee/${id}`,updatedData,{headers:headers})
   
   }
 
@@ -49,7 +49,7 @@ export class ApicallService {
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
     })
-    return this.http.get("http://localhost:5001/api/employee/getAllEmployee",{headers:headers})
+    return this.http.get("http://13.211.117.254/api/employee/getAllEmployee",{headers:headers})
   }
 
   deleteEmployee(id:any,token:any){
@@ -57,7 +57,7 @@ export class ApicallService {
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
     })
-    return this.http.delete(`http://localhost:5001/api/employee/deleteEmployee/${id}`,{headers:headers})
+    return this.http.delete(`http://13.211.117.254/api/employee/deleteEmployee/${id}`,{headers:headers})
   }
 
   getEmployee(id:any,token:any){
@@ -65,7 +65,7 @@ export class ApicallService {
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
     })
-    return this.http.get(`http://localhost:5001/api/employee/getEmployee/${id}`,{headers:headers})
+    return this.http.get(`http://13.211.117.254/api/employee/getEmployee/${id}`,{headers:headers})
   }
 
   createAttendance(employeesData:any,token:any){
@@ -75,7 +75,7 @@ export class ApicallService {
       
     })
     
-    return this.http.post("http://localhost:5001/api/attendance/createAttendance",employeesData,{headers:headers})
+    return this.http.post("http://13.211.117.254/api/attendance/createAttendance",employeesData,{headers:headers})
   
   }
 
@@ -84,7 +84,7 @@ export class ApicallService {
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
     })
-    return this.http.get("http://localhost:5001/api/attendance/getAllAttendance",{headers:headers})
+    return this.http.get("http://13.211.117.254/api/attendance/getAllAttendance",{headers:headers})
   }
 
   getAttendanceByDate(date:any,token:any){
@@ -92,7 +92,7 @@ export class ApicallService {
       "Content-type":"application/json",
       "Authorization":`Bearer ${token}`
     })
-    return this.http.get(`http://localhost:5001/api/attendance/getAttendance/${date}`,{headers:headers})
+    return this.http.get(`http://13.211.117.254/api/attendance/getAttendance/${date}`,{headers:headers})
   }
 
   updateAttendance(date:any, updatedData: any,token:any){
@@ -101,7 +101,7 @@ export class ApicallService {
       "Authorization":`Bearer ${token}`
       
     });
-    return this.http.put(`http://localhost:5001/api/attendance/updateAttendance/${date}`,updatedData,{headers:headers})
+    return this.http.put(`http://13.211.117.254/api/attendance/updateAttendance/${date}`,updatedData,{headers:headers})
   
   }
 
@@ -111,7 +111,7 @@ export class ApicallService {
       "Authorization":`Bearer ${token}`
       
     });
-    return this.http.get(`http://localhost:5001/api/attendance/getBetweenDates/?startDate=${startDate}&endDate=${endDate}`,{headers:headers})
+    return this.http.get(`http://13.211.117.254/api/attendance/getBetweenDates/?startDate=${startDate}&endDate=${endDate}`,{headers:headers})
   
   }
 
@@ -121,7 +121,7 @@ export class ApicallService {
       "Authorization":`Bearer ${token}`
       
     });
-    return this.http.get(`http://localhost:5001/api/attendance/oneWeekAttendance/${date}`,{headers:headers})
+    return this.http.get(`http://13.211.117.254/api/attendance/oneWeekAttendance/${date}`,{headers:headers})
   
   }
 
@@ -131,7 +131,7 @@ export class ApicallService {
       "Authorization":`Bearer ${token}`
       
     });
-    return this.http.get(`http://localhost:5001/api/attendance/nextWeekAttendance/${date}`,{headers:headers})
+    return this.http.get(`http://13.211.117.254/api/attendance/nextWeekAttendance/${date}`,{headers:headers})
   
   }
 

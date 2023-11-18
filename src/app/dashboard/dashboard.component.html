@@ -47,12 +47,13 @@
       </div>
     </div>
   </div>
-  
+
+  <div>
+    <button type="button" style="margin-left: 1100px;" class="btn btn-secondary" (click)="toggleCreateEmployeeForm()">Add Employee</button>
+ </div><br>
   
   <div *ngIf="employees && employees.length > 0">
-    <div>
-      <button type="button" style="margin-left: 1100px;" class="btn btn-secondary" (click)="toggleCreateEmployeeForm()">Add Employee</button>
-  </div><br>
+    
     <div class="container">
     <table class="table ">
       <thead class="thead-dark">
